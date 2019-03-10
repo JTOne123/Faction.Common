@@ -20,6 +20,7 @@ namespace Faction.Common.Messages
     public int Id;
     public string Name;
     public string Description;
+    public string Guid;
     public string Configuration;
     public bool Enabled;
     public bool Visible;
