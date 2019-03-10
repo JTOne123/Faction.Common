@@ -303,16 +303,21 @@ namespace Faction.Common.Backend.EventBus.RabbitMQ
             DefaultValueHandling = DefaultValueHandling.Ignore,
             MissingMemberHandling = MissingMemberHandling.Ignore,
             DateTimeZoneHandling = DateTimeZoneHandling.Utc
-          //PreserveReferencesHandling = PreserveReferencesHandling.Objects
-        };
+            //PreserveReferencesHandling = PreserveReferencesHandling.Objects
+          };
           foreach (var subscription in subscriptions)
           {
-            var eventType = _subsManager.GetEventTypeByName(eventName);
-            var integrationEvent = JsonConvert.DeserializeObject(message, eventType, settings);
-            var handler = _services.GetService(subscription.HandlerType);
-            var concreteType = typeof(IEventHandler<>).MakeGenericType(eventType);
-            var method = concreteType.GetMethod("Handle");
-            await (Task)method.Invoke(handler, new object[] { integrationEvent, replyTo, correlationId });
+            try {
+              var eventType = _subsManager.GetEventTypeByName(eventName);
+              var integrationEvent = JsonConvert.DeserializeObject(message, eventType, settings);
+              var handler = _services.GetService(subscription.HandlerType);
+              var concreteType = typeof(IEventHandler<>).MakeGenericType(eventType);
+              var method = concreteType.GetMethod("Handle");
+              await (Task)method.Invoke(handler, new object[] { integrationEvent, replyTo, correlationId });
+            }
+            catch (Exception e) {
+              _logger.LogError($"Failed to process RabbitMQ message. Error: {e.Message}");
+            }
           }
         }
       }
