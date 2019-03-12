@@ -296,6 +296,7 @@ namespace Faction.Common.Backend.EventBus.RabbitMQ
         // results in handler being null as if there are not Event Handlers registered in the DI Container
         using (var scope = _services.CreateScope())
         {
+          _logger.LogInformation($"Processing Event: {eventName}");
           var subscriptions = _subsManager.GetHandlersForEvent(eventName);
           var settings = new JsonSerializerSettings
           {
@@ -307,12 +308,23 @@ namespace Faction.Common.Backend.EventBus.RabbitMQ
           };
           foreach (var subscription in subscriptions)
           {
+            _logger.LogInformation("Entering for loop");
             try {
               var eventType = _subsManager.GetEventTypeByName(eventName);
+              _logger.LogInformation($"Got eventType {eventType.ToString()}");
+
               var integrationEvent = JsonConvert.DeserializeObject(message, eventType, settings);
+              _logger.LogInformation($"Got integrationEvent {integrationEvent.ToString()}");
+
               var handler = _services.GetService(subscription.HandlerType);
+              _logger.LogInformation($"Got handler {handler.ToString()}");
+
               var concreteType = typeof(IEventHandler<>).MakeGenericType(eventType);
+              _logger.LogInformation($"Got concreateType {concreteType.ToString()}");
+
               var method = concreteType.GetMethod("Handle");
+              _logger.LogInformation($"Got method {method.ToString()}");
+
               await (Task)method.Invoke(handler, new object[] { integrationEvent, replyTo, correlationId });
             }
             catch (Exception e) {

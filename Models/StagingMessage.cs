@@ -14,7 +14,7 @@ namespace Faction.Common.Models
         public int PayloadId { get; set; }
         public string PayloadName { get; set; }
         public string StagingId { get; set; }
-    public int? StagingResponseId { get; set; }
+        public int? StagingResponseId { get; set; }
         public string IV { get; set; }
         public string HMAC { get; set; }
         public string Message { get; set; }
