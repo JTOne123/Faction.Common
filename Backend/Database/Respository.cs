@@ -109,6 +109,11 @@ namespace Faction.Common.Backend.Database
       return _dbContext.AgentTransportType.Find(AgentTransportTypeId);
     }
 
+    public ApiKey GetApiKey(int ApiKeyId)
+    {
+      return _dbContext.ApiKey.Find(ApiKeyId);
+    }
+
     public Command GetCommand(int CommandId)
     {
       return _dbContext.Command.Find(CommandId);

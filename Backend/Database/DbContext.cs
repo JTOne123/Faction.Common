@@ -29,6 +29,7 @@ namespace Faction.Common.Backend.Database
         public virtual DbSet<AgentTransportType> AgentTransportType { get; set; }
         public virtual DbSet<AgentType> AgentType { get; set; }
         public virtual DbSet<AgentTypeFormat> AgentTypeFormat { get; set; }
+        public virtual DbSet<ApiKey> ApiKey { get; set; }
         public virtual DbSet<Command> Command { get; set; }
         public virtual DbSet<CommandParameter> CommandParameter { get; set; }
         public virtual DbSet<ConsoleMessage> ConsoleMessage { get; set; }
