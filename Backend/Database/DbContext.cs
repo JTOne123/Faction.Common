@@ -28,7 +28,11 @@ namespace Faction.Common.Backend.Database
         public virtual DbSet<AgentTaskUpdate> AgentTaskUpdate { get; set; }
         public virtual DbSet<AgentTransportType> AgentTransportType { get; set; }
         public virtual DbSet<AgentType> AgentType { get; set; }
+        public virtual DbSet<AgentTypeArchitecture> AgentTypeArchitecture { get; set; }
+        public virtual DbSet<AgentTypeConfiguration> AgentTypeConfiguration { get; set; }
         public virtual DbSet<AgentTypeFormat> AgentTypeFormat { get; set; }
+        public virtual DbSet<AgentTypeOperatingSystem> AgentTypeOperatingSystem { get; set; }
+        public virtual DbSet<AgentTypeVersion> AgentTypeVersion { get; set; }
         public virtual DbSet<ApiKey> ApiKey { get; set; }
         public virtual DbSet<Command> Command { get; set; }
         public virtual DbSet<CommandParameter> CommandParameter { get; set; }
@@ -214,19 +218,59 @@ namespace Faction.Common.Backend.Database
               .HasConstraintName("AgentType_LanguageId_fkey");
             });
 
-            modelBuilder.Entity<AgentTypeFormat>(entity =>
+            modelBuilder.Entity<AgentTypeArchitecture>(entity =>
             {
                 entity.Property(e => e.Name).HasColumnType("character varying");
 
-                entity.Property(e => e.Description).HasColumnType("character varying");
-                
-                entity.Property(e => e.BuildCommand).HasColumnType("character varying");
+                entity.HasOne(d => d.AgentType)
+                    .WithMany(p => p.AgentTypeArchitectures)
+                    .HasForeignKey(d => d.AgentTypeId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)                    
+                    .HasConstraintName("AgentTypeArchitecture_AgentTypeId_fkey");
+            });
+
+                modelBuilder.Entity<AgentTypeConfiguration>(entity =>
+            {
+                entity.Property(e => e.Name).HasColumnType("character varying");
+
+                entity.HasOne(d => d.AgentType)
+                    .WithMany(p => p.AgentTypeConfigurations)
+                    .HasForeignKey(d => d.AgentTypeId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)                    
+                    .HasConstraintName("AgentTypeConfiguration_AgentTypeId_fkey");
+            });
+
+                modelBuilder.Entity<AgentTypeFormat>(entity =>
+            {
+                entity.Property(e => e.Name).HasColumnType("character varying");
 
                 entity.HasOne(d => d.AgentType)
                     .WithMany(p => p.AgentTypeFormats)
                     .HasForeignKey(d => d.AgentTypeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)                    
                     .HasConstraintName("AgentTypeFormat_AgentTypeId_fkey");
+            });
+
+                modelBuilder.Entity<AgentTypeOperatingSystem>(entity =>
+            {
+                entity.Property(e => e.Name).HasColumnType("character varying");
+
+                entity.HasOne(d => d.AgentType)
+                    .WithMany(p => p.AgentTypeOperatingSystems)
+                    .HasForeignKey(d => d.AgentTypeId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)                    
+                    .HasConstraintName("AgentTypeOperatingSystem_AgentTypeId_fkey");
+            });
+
+                modelBuilder.Entity<AgentTypeVersion>(entity =>
+            {
+                entity.Property(e => e.Name).HasColumnType("character varying");
+
+                entity.HasOne(d => d.AgentType)
+                    .WithMany(p => p.AgentTypeVersions)
+                    .HasForeignKey(d => d.AgentTypeId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)                    
+                    .HasConstraintName("AgentTypeVersion_AgentTypeId_fkey");
             });
 
             modelBuilder.Entity<ApiKey>(entity =>
@@ -369,12 +413,6 @@ namespace Faction.Common.Backend.Database
                     .HasForeignKey(d => d.AgentTypeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("Payload_AgentTypeId_fkey");
-
-                entity.HasOne(d => d.AgentTypeFormat)
-                    .WithMany(p => p.Payloads)
-                    .HasForeignKey(d => d.AgentTypeFormatId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("Payload_AgentTypeFormatId_fkey");
 
                 entity.HasOne(d => d.AgentTransportType)
                     .WithMany(p => p.Payloads)
