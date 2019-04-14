@@ -28,8 +28,9 @@ namespace Faction.Common.Models
         public int AgentTypeArchitectureId { get; set; }
         public int AgentTypeVersionId { get; set; }
         public int AgentTypeFormatId { get; set; }
-        public int AgentTypeAgentTypeConfigurationId { get; set; }
-        public DateTime Created { get; set; }
+        public int AgentTypeConfigurationId { get; set; }
+        public bool Debug { get; set; }
+    public DateTime Created { get; set; }
         public DateTime? LastDownloaded { get; set; }
         public DateTime? ExpirationDate { get; set; }
         public bool Visible { get; set; }

@@ -12,14 +12,15 @@ namespace Faction.Common.Messages
     public int AgentTypeFormatId;
     public int AgentTransportTypeId;
     public int TransportId;
-    public string OperatingSystem { get; set; }
-    public string Architecture { get; set; }
-    public string Version { get; set; }
-    public string Format { get; set; }
-    public string AgentTypeConfiguration { get; set; }
+    public int OperatingSystemId { get; set; }
+    public int ArchitectureId { get; set; }
+    public int VersionId { get; set; }
+    public int FormatId { get; set; }
+    public int AgentTypeConfigurationId { get; set; }
     public double Jitter;
     public int BeaconInterval;
     public DateTime? ExpirationDate;
+    public bool Debug;
   }
 
   public class UpdatePayload 
