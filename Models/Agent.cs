@@ -40,6 +40,7 @@ namespace Faction.Common.Models
         public double? Jitter { get; set; }
         public bool Visible { get; set; }
 
+        [JsonIgnore]
         public AgentType AgentType { get; set; }
         public Payload Payload { get; set; }
         [JsonIgnore]
