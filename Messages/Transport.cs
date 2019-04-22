@@ -4,7 +4,7 @@ namespace Faction.Common.Messages
 {
   public partial class NewTransport
   {
-    public string Description { get; set; }
+    public string Name { get; set; }
     public int ApiKeyId { get; set; }
     public int UserId { get; set; }
   }
@@ -19,7 +19,7 @@ namespace Faction.Common.Messages
   {
     public int Id;
     public string Name;
-    public string Description;
+    public string TransportType;
     public string Guid;
     public string Configuration;
     public bool Enabled;

@@ -36,12 +36,15 @@ namespace Faction.Common.Models
         public string ExternalIp { get; set; }
         public DateTime? InitialCheckin { get; set; }
         public DateTime? LastCheckin { get; set; }
+        public int TransportId { get; set; }
         public int? BeaconInterval { get; set; }
         public double? Jitter { get; set; }
         public bool Visible { get; set; }
 
         [JsonIgnore]
         public AgentType AgentType { get; set; }
+        [JsonIgnore]
+        public Transport Transport { get; set; }
         public Payload Payload { get; set; }
         [JsonIgnore]
         public StagingResponse StagingResponse { get; set; }

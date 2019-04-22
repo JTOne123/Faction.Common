@@ -93,6 +93,12 @@ namespace Faction.Common.Backend.Database
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("Agent_PayloadId_fkey");
 
+                entity.HasOne(d => d.Transport)
+                    .WithMany(p => p.Agents)
+                    .HasForeignKey(d => d.TransportId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("Agent_TransportId_fkey");
+
                 entity.HasOne(d => d.StagingResponse)
                   .WithOne(b => b.Agent)
                   .HasForeignKey<StagingResponse>(b => b.AgentId);
@@ -110,6 +116,11 @@ namespace Faction.Common.Backend.Database
                     .WithMany(p => p.AgentCheckins)
                     .HasForeignKey(d => d.AgentId)
                     .HasConstraintName("AgentCheckin_AgentId_fkey");
+
+                entity.HasOne(d => d.Transport)
+                    .WithMany(p => p.AgentCheckins)
+                    .HasForeignKey(d => d.TransportId)
+                    .HasConstraintName("AgentCheckin_TransportId_fkey");
             });
 
             modelBuilder.Entity<AgentTask>(entity =>
@@ -441,6 +452,11 @@ namespace Faction.Common.Backend.Database
 
                 entity.Property(e => e.Message).HasColumnType("character varying");
 
+                entity.HasOne(d => d.Transport)
+                    .WithMany(p => p.StagingMessages)
+                    .HasForeignKey(d => d.TransportId)
+                    .HasConstraintName("StagingMessage_TransportId_fkey");
+
                 entity.HasOne(d => d.Payload)
                     .WithMany(p => p.StagingMessages)
                     .HasForeignKey(d => d.PayloadId)
@@ -464,7 +480,7 @@ namespace Faction.Common.Backend.Database
             modelBuilder.Entity<Transport>(entity =>
             {
                 entity.Property(e => e.Name).HasColumnType("character varying");
-                entity.Property(e => e.Description).HasColumnType("character varying");
+                entity.Property(e => e.TransportType).HasColumnType("character varying");
                 entity.Property(e => e.Guid).HasColumnType("character varying");
 
                 entity.HasOne(d => d.ApiKey)
