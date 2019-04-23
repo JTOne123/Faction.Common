@@ -28,7 +28,11 @@ namespace Faction.Common.Backend.Database
         public virtual DbSet<AgentTaskUpdate> AgentTaskUpdate { get; set; }
         public virtual DbSet<AgentTransportType> AgentTransportType { get; set; }
         public virtual DbSet<AgentType> AgentType { get; set; }
+        public virtual DbSet<AgentTypeArchitecture> AgentTypeArchitecture { get; set; }
+        public virtual DbSet<AgentTypeConfiguration> AgentTypeConfiguration { get; set; }
         public virtual DbSet<AgentTypeFormat> AgentTypeFormat { get; set; }
+        public virtual DbSet<AgentTypeOperatingSystem> AgentTypeOperatingSystem { get; set; }
+        public virtual DbSet<AgentTypeVersion> AgentTypeVersion { get; set; }
         public virtual DbSet<ApiKey> ApiKey { get; set; }
         public virtual DbSet<Command> Command { get; set; }
         public virtual DbSet<CommandParameter> CommandParameter { get; set; }
@@ -89,6 +93,12 @@ namespace Faction.Common.Backend.Database
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("Agent_PayloadId_fkey");
 
+                entity.HasOne(d => d.Transport)
+                    .WithMany(p => p.Agents)
+                    .HasForeignKey(d => d.TransportId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("Agent_TransportId_fkey");
+
                 entity.HasOne(d => d.StagingResponse)
                   .WithOne(b => b.Agent)
                   .HasForeignKey<StagingResponse>(b => b.AgentId);
@@ -106,6 +116,11 @@ namespace Faction.Common.Backend.Database
                     .WithMany(p => p.AgentCheckins)
                     .HasForeignKey(d => d.AgentId)
                     .HasConstraintName("AgentCheckin_AgentId_fkey");
+
+                entity.HasOne(d => d.Transport)
+                    .WithMany(p => p.AgentCheckins)
+                    .HasForeignKey(d => d.TransportId)
+                    .HasConstraintName("AgentCheckin_TransportId_fkey");
             });
 
             modelBuilder.Entity<AgentTask>(entity =>
@@ -214,19 +229,59 @@ namespace Faction.Common.Backend.Database
               .HasConstraintName("AgentType_LanguageId_fkey");
             });
 
-            modelBuilder.Entity<AgentTypeFormat>(entity =>
+            modelBuilder.Entity<AgentTypeArchitecture>(entity =>
             {
                 entity.Property(e => e.Name).HasColumnType("character varying");
 
-                entity.Property(e => e.Description).HasColumnType("character varying");
-                
-                entity.Property(e => e.BuildCommand).HasColumnType("character varying");
+                entity.HasOne(d => d.AgentType)
+                    .WithMany(p => p.AgentTypeArchitectures)
+                    .HasForeignKey(d => d.AgentTypeId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)                    
+                    .HasConstraintName("AgentTypeArchitecture_AgentTypeId_fkey");
+            });
+
+                modelBuilder.Entity<AgentTypeConfiguration>(entity =>
+            {
+                entity.Property(e => e.Name).HasColumnType("character varying");
+
+                entity.HasOne(d => d.AgentType)
+                    .WithMany(p => p.AgentTypeConfigurations)
+                    .HasForeignKey(d => d.AgentTypeId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)                    
+                    .HasConstraintName("AgentTypeConfiguration_AgentTypeId_fkey");
+            });
+
+                modelBuilder.Entity<AgentTypeFormat>(entity =>
+            {
+                entity.Property(e => e.Name).HasColumnType("character varying");
 
                 entity.HasOne(d => d.AgentType)
                     .WithMany(p => p.AgentTypeFormats)
                     .HasForeignKey(d => d.AgentTypeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)                    
                     .HasConstraintName("AgentTypeFormat_AgentTypeId_fkey");
+            });
+
+                modelBuilder.Entity<AgentTypeOperatingSystem>(entity =>
+            {
+                entity.Property(e => e.Name).HasColumnType("character varying");
+
+                entity.HasOne(d => d.AgentType)
+                    .WithMany(p => p.AgentTypeOperatingSystems)
+                    .HasForeignKey(d => d.AgentTypeId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)                    
+                    .HasConstraintName("AgentTypeOperatingSystem_AgentTypeId_fkey");
+            });
+
+                modelBuilder.Entity<AgentTypeVersion>(entity =>
+            {
+                entity.Property(e => e.Name).HasColumnType("character varying");
+
+                entity.HasOne(d => d.AgentType)
+                    .WithMany(p => p.AgentTypeVersions)
+                    .HasForeignKey(d => d.AgentTypeId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)                    
+                    .HasConstraintName("AgentTypeVersion_AgentTypeId_fkey");
             });
 
             modelBuilder.Entity<ApiKey>(entity =>
@@ -370,12 +425,6 @@ namespace Faction.Common.Backend.Database
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("Payload_AgentTypeId_fkey");
 
-                entity.HasOne(d => d.AgentTypeFormat)
-                    .WithMany(p => p.Payloads)
-                    .HasForeignKey(d => d.AgentTypeFormatId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("Payload_AgentTypeFormatId_fkey");
-
                 entity.HasOne(d => d.AgentTransportType)
                     .WithMany(p => p.Payloads)
                     .HasForeignKey(d => d.AgentTransportTypeId)
@@ -403,6 +452,11 @@ namespace Faction.Common.Backend.Database
 
                 entity.Property(e => e.Message).HasColumnType("character varying");
 
+                entity.HasOne(d => d.Transport)
+                    .WithMany(p => p.StagingMessages)
+                    .HasForeignKey(d => d.TransportId)
+                    .HasConstraintName("StagingMessage_TransportId_fkey");
+
                 entity.HasOne(d => d.Payload)
                     .WithMany(p => p.StagingMessages)
                     .HasForeignKey(d => d.PayloadId)
@@ -426,7 +480,7 @@ namespace Faction.Common.Backend.Database
             modelBuilder.Entity<Transport>(entity =>
             {
                 entity.Property(e => e.Name).HasColumnType("character varying");
-                entity.Property(e => e.Description).HasColumnType("character varying");
+                entity.Property(e => e.TransportType).HasColumnType("character varying");
                 entity.Property(e => e.Guid).HasColumnType("character varying");
 
                 entity.HasOne(d => d.ApiKey)

@@ -309,7 +309,7 @@ namespace Faction.Common.Backend.EventBus.RabbitMQ
           foreach (var subscription in subscriptions)
           {
             _logger.LogInformation("Entering for loop");
-            try {
+            // try {
               var eventType = _subsManager.GetEventTypeByName(eventName);
               _logger.LogInformation($"Got eventType {eventType.ToString()}");
 
@@ -326,10 +326,10 @@ namespace Faction.Common.Backend.EventBus.RabbitMQ
               _logger.LogInformation($"Got method {method.ToString()}");
 
               await (Task)method.Invoke(handler, new object[] { integrationEvent, replyTo, correlationId });
-            }
-            catch (Exception e) {
-              _logger.LogError($"Failed to process RabbitMQ message. Error: {e.Message}");
-            }
+            // }
+            // catch (Exception e) {
+            //   _logger.LogError($"Failed to process RabbitMQ message. Error: {e.Message}");
+            // }
           }
         }
       }

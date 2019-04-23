@@ -19,6 +19,8 @@ namespace Faction.Common.Messages
   public class NewAgentCheckin
   {
     public string AgentName;
+    public int TransportId;
+    public string SourceIp;
     public string IV = null;
     public string HMAC = null;
     public string Message = null;
@@ -27,6 +29,9 @@ namespace Faction.Common.Messages
   public class AgentCheckinAnnouncement
   {
     public int Id;
+    public int TransportId;
+    public string TransportName;
+    public string SourceIp;
     public DateTime Received;
   }
 }

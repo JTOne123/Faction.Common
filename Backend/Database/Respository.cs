@@ -99,10 +99,56 @@ namespace Faction.Common.Backend.Database
       return _dbContext.Command.Where(b => b.AgentTypeId == AgentTypeId).ToList();
     }
 
+    public AgentTypeArchitecture GetAgentTypeArchitecture(int AgentTypeArchitectureId)
+    {
+      return _dbContext.AgentTypeArchitecture.Find(AgentTypeArchitectureId);
+    }
+
+    public List<AgentTypeArchitecture> GetAgentTypeArchitectures(int AgentTypeId)
+    {
+      return _dbContext.AgentTypeArchitecture.Where(b => b.AgentTypeId == AgentTypeId).ToList();
+    }
+    
+    public AgentTypeConfiguration GetAgentTypeConfiguration(int AgentTypeConfigurationId)
+    {
+      return _dbContext.AgentTypeConfiguration.Find(AgentTypeConfigurationId);
+    }
+    
+    public List<AgentTypeConfiguration> GetAgentTypeConfigurations(int AgentTypeId)
+    {
+      return _dbContext.AgentTypeConfiguration.Where(b => b.AgentTypeId == AgentTypeId).ToList();
+    }
+    
     public AgentTypeFormat GetAgentTypeFormat(int AgentTypeFormatId)
     {
       return _dbContext.AgentTypeFormat.Find(AgentTypeFormatId);
     }
+    
+    public List<AgentTypeFormat> GetAgentTypeFormats(int AgentTypeId)
+    {
+      return _dbContext.AgentTypeFormat.Where(b => b.AgentTypeId == AgentTypeId).ToList();
+    }
+    
+    public AgentTypeOperatingSystem GetAgentTypeOperatingSystem(int AgentTypeOperatingSystemId)
+    {
+      return _dbContext.AgentTypeOperatingSystem.Find(AgentTypeOperatingSystemId);
+    }
+    
+    public List<AgentTypeOperatingSystem> GetAgentTypeOperatingSystems(int AgentTypeId)
+    {
+      return _dbContext.AgentTypeOperatingSystem.Where(b => b.AgentTypeId == AgentTypeId).ToList();
+    }
+    
+    public AgentTypeVersion GetAgentTypeVersion(int AgentTypeVersionId)
+    {
+      return _dbContext.AgentTypeVersion.Find(AgentTypeVersionId);
+    }
+    
+    public List<AgentTypeVersion> GetAgentTypeVersions(int AgentTypeId)
+    {
+      return _dbContext.AgentTypeVersion.Where(b => b.AgentTypeId == AgentTypeId).ToList();
+    }
+    
 
     public AgentTransportType GetAgentTransportType(int AgentTransportTypeId)
     {
