@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackOnBuild>true</PackOnBuild>
-    <PackageVersion>2019.4.20</PackageVersion>
+    <PackageVersion>2019.5.17</PackageVersion>
     <Authors>The Faction C2 Team</Authors>
     <NeutralLanguage>en-US</NeutralLanguage>
     <PackageLicenseUrl>https://github.com/FactionC2/Faction.Common/LICENSE.txt</PackageLicenseUrl>
