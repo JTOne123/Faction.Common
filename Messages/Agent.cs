@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Faction.Common.Models;
 
 namespace Faction.Common.Messages
@@ -81,6 +82,13 @@ namespace Faction.Common.Messages
   {
     public bool Success;
     public Agent Agent;
+  }
+
+  public class AgentCommandsUpdated
+  {
+    public bool Success;
+    public int AgentId;
+    public List<Command> Commands;
   }
 
   public class NewAgentCheckin
