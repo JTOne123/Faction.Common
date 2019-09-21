@@ -13,6 +13,7 @@ namespace Faction.Common.Models
     public int? Position { get; set; }
     public string Values { get; set; }
     public int CommandId { get; set; }
+    [JsonIgnore]
     public Command Command { get; set; }
   }
 }
