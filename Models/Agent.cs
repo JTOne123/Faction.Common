@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using Faction.Common;
+using Faction.Common.Utilities;
 
 namespace Faction.Common.Models
 {
@@ -9,7 +10,7 @@ namespace Faction.Common.Models
     {
         public Agent()
         {
-            Name = Utility.GenerateSecureString(12);
+            Name = RandomString.Generate(12);
             AgentTask = new HashSet<AgentTask>();
             AgentTaskMessages = new HashSet<AgentTaskMessage>();
             AgentCheckins = new HashSet<AgentCheckin>();

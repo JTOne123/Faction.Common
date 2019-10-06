@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 using Faction.Common;
 using Faction.Common.Models;
+using Faction.Common.Utilities;
 
 namespace Faction.Common.Backend.Database
 {
@@ -50,8 +51,7 @@ namespace Faction.Common.Backend.Database
         {
             if (!optionsBuilder.IsConfigured)
             {
-                FactionSettings config = Utility.GetConfiguration();
-                string connectionString = $"Host={config.POSTGRES_HOST};Database={config.POSTGRES_DATABASE};Username={config.POSTGRES_USERNAME};Password={config.POSTGRES_PASSWORD}";
+                string connectionString = $"Host={FactionSettings.POSTGRES_HOST};Database={FactionSettings.POSTGRES_DATABASE};Username={FactionSettings.POSTGRES_USERNAME};Password={FactionSettings.POSTGRES_PASSWORD}";
                 optionsBuilder.UseNpgsql(connectionString);
                 optionsBuilder.EnableSensitiveDataLogging();
             }
