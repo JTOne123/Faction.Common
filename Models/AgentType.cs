@@ -28,7 +28,9 @@ namespace Faction.Common.Models
     public Language Language { get; set; }
     [JsonIgnore]
     public string BuildCommand { get; set; }
+    [JsonIgnore]
     public string BuildLocation { get; set; }
+    public bool Development { get; set; }
     public ICollection<Agent> Agents { get; set; }
     [JsonIgnore]
     public ICollection<AgentTransportType> AgentTransportTypes { get; set; }

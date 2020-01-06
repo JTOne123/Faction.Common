@@ -23,6 +23,15 @@ namespace Faction.Common.Messages
     public bool Debug;
   }
 
+  public class DevPayloadCreated
+  {
+    public bool Success;
+    public string StagingKey;
+    public double Jitter;
+    public int BeaconInterval;
+    public DateTime? ExpirationDate;
+  }
+
   public class UpdatePayload 
   {
     public int Id;
