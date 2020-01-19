@@ -1,9 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <PackOnBuild>true</PackOnBuild>
-    <PackageVersion>2019.9.211</PackageVersion>
+    <PackageVersion>2020.01.19-beta</PackageVersion>
     <Authors>The Faction C2 Team</Authors>
     <NeutralLanguage>en-US</NeutralLanguage>
     <PackageLicenseUrl>https://github.com/FactionC2/Faction.Common/LICENSE.txt</PackageLicenseUrl>
@@ -12,6 +12,9 @@
     <Description>Common library for service in the Faction C2 Framework</Description>
     <PackageId>Faction.Common</PackageId>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <LangVersion>8</LangVersion>
+    <AssemblyVersion>2020.01.19</AssemblyVersion>
+    <Title>Faction Common Library for Services</Title>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' " />
@@ -19,9 +22,9 @@
     <DebugType></DebugType>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
-    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.2.4" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.0.1" />
     <PackageReference Include="Polly" Version="7.1.1" />
     <PackageReference Include="RabbitMQ" Version="3.6.2" />
     <PackageReference Include="RabbitMQ.Client" Version="5.1.0" />
