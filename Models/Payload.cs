@@ -6,11 +6,13 @@ namespace Faction.Common.Models
 {
     public partial class Payload
     {
-        public Payload() {
-          Agents = new HashSet<Agent>();
-          Created = DateTime.UtcNow;
-          Visible = true;
+        public Payload()
+        {
+            Agents = new HashSet<Agent>();
+            Created = DateTime.UtcNow;
+            Visible = true;
         }
+
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
@@ -30,25 +32,21 @@ namespace Faction.Common.Models
         public int AgentTypeFormatId { get; set; }
         public int AgentTypeConfigurationId { get; set; }
         public bool Debug { get; set; }
-    public DateTime Created { get; set; }
+        public DateTime Created { get; set; }
         public DateTime? LastDownloaded { get; set; }
         public DateTime? ExpirationDate { get; set; }
         public bool Visible { get; set; }
         public bool Enabled { get; set; }
         public Transport Transport { get; set; }
-        [JsonIgnore]
-        public AgentType AgentType { get; set; }
-        [JsonIgnore]
-        public Language Language { get; set; }
-        [JsonIgnore]
-        public ICollection<StagingMessage> StagingMessages { get; set; }
+        [JsonIgnore] public AgentType AgentType { get; set; }
+        [JsonIgnore] public Language Language { get; set; }
+        [JsonIgnore] public ICollection<StagingMessage> StagingMessages { get; set; }
         public AgentTypeArchitecture AgentTypeArchitecture { get; set; }
         public AgentTypeConfiguration AgentTypeConfiguration { get; set; }
         public AgentTypeFormat AgentTypeFormat { get; set; }
         public AgentTypeOperatingSystem AgentTypeOperatingSystem { get; set; }
         public AgentTypeVersion AgentTypeVersion { get; set; }
         public AgentTransportType AgentTransportType { get; set; }
-        [JsonIgnore]
-        public ICollection<Agent> Agents { get; set; }
-  }
+        [JsonIgnore] public ICollection<Agent> Agents { get; set; }
+    }
 }

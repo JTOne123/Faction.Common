@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <PackOnBuild>true</PackOnBuild>
-    <PackageVersion>2019.10.03-beta</PackageVersion>
+    <PackageVersion>2020.01.19-beta</PackageVersion>
     <Authors>The Faction C2 Team</Authors>
     <NeutralLanguage>en-US</NeutralLanguage>
     <PackageLicenseUrl>https://github.com/FactionC2/Faction.Common/LICENSE.txt</PackageLicenseUrl>
@@ -13,7 +13,8 @@
     <PackageId>Faction.Common</PackageId>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <LangVersion>8</LangVersion>
-    <AssemblyVersion>2019.10.03</AssemblyVersion>
+    <AssemblyVersion>2020.01.19</AssemblyVersion>
+    <Title>Faction Common Library for Services</Title>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' " />
